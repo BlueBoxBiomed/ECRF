@@ -6,7 +6,8 @@
   <style>
     body { font-family: Arial; padding: 20px; }
     h1 { margin-bottom: 10px; }
-    a { display: block; margin: 5px 0; }
+    a { display: inline-block; margin: 10px 0; font-size: 18px; }
+    iframe { margin-top: 10px; }
   </style>
 </head>
 <body>
@@ -19,37 +20,13 @@
 </a>
 
 <h2>📋 Existing Patients</h2>
-<div id="list">Loading...</div>
 
-<script>
-const sheetURL = "https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/pub?output=csv";
-
-fetch(sheetURL)
-  .then(response => response.text())
-  .then(csv => {
-    const rows = csv.split("\n").slice(1); // skip header
-    const container = document.getElementById("list");
-    container.innerHTML = "";
-
-    rows.forEach(row => {
-      const cols = row.split(",");
-      const patientId = cols[0];
-      const link = cols[1];
-
-      if (patientId && link) {
-        const a = document.createElement("a");
-        a.href = link;
-        a.target = "_blank";
-        a.textContent = "Patient " + patientId;
-        container.appendChild(a);
-      }
-    });
-  })
-  .catch(err => {
-    document.getElementById("list").innerText = "Error loading data";
-    console.error(err);
-  });
-</script>
+<iframe 
+  src="https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/edit?usp=sharing"
+  width="100%" 
+  height="600"
+  style="border:1px solid #ccc;">
+</iframe>
 
 </body>
 </html>
